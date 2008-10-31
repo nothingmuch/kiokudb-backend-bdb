@@ -10,7 +10,7 @@ use namespace::clean -except => 'meta';
 extends qw(KiokuDB::Backend::BDB);
 
 with qw(
-    KiokuDB::Backend::Query::GIN
+    KiokuDB::Backend::Role::Query::GIN
     Search::GIN::Extract::Delegate
 );
 
