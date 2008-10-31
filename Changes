@@ -1,0 +1,9 @@
+0.03
+    - Update for renamed backend roles
+
+0.02
+    - Dependency fixes
+    - GIN extractor is optional when dumping/loading database
+
+0.01
+    - Initial release
