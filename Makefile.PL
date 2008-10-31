@@ -14,11 +14,11 @@ WriteMakefile(
     PL_FILES     => { },
     PREREQ_PM    => {
         'Moose' => 0,
-		'MooseX::Types::Path::Class' => 0,
+        'MooseX::Types::Path::Class' => 0,
 
-		'KiokuDB' => 0.07,
+        'KiokuDB' => 0.07,
 
-		'Data::Stream::Bulk' => 0,
+        'Data::Stream::Bulk' => 0,
 
         'BerkeleyDB::Manager' => '0.07',
 
@@ -26,7 +26,7 @@ WriteMakefile(
         'Test::More' => 0,
         'Test::TempDir' => 0,
 
-		'Storable' => 0,
+        'Storable' => 0,
 
         'Search::GIN' => 0,
     },
