@@ -16,11 +16,11 @@ WriteMakefile(
         'Moose' => 0,
         'MooseX::Types::Path::Class' => 0,
 
-        'KiokuDB' => 0.07,
+        'KiokuDB' => 0.08,
 
         'Data::Stream::Bulk' => 0,
 
-        'BerkeleyDB::Manager' => '0.07',
+        'BerkeleyDB::Manager' => '0.09',
         'BerkeleyDB' => '0.36',
 
         'Test::use::ok' => 0,
