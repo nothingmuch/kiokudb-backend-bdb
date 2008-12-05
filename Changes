@@ -1,3 +1,7 @@
+0.04
+    - for better compat with BDB's tools, stop using logs/data subdirs (old
+      layout is still detected)
+
 0.03
     - Update for renamed backend roles
 
