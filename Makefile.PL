@@ -12,6 +12,7 @@ WriteMakefile(
     INSTALLDIRS  => 'site',
     SIGN         => 1,
     PL_FILES     => { },
+    META_MERGE   => { configure_requires => { BerkeleyDB => '0.36' } },
     PREREQ_PM    => {
         'Moose' => 0,
         'MooseX::Types::Path::Class' => 0,
@@ -32,3 +33,7 @@ WriteMakefile(
         'Search::GIN' => 0,
     },
 );
+
+if ( eval { require BerkeleDB } ) {
+    die "BDB 4.7 required, but we only have $BerkeleyDB::db_version" if $BerkeleyDB::db_version < 4.7;
+}
