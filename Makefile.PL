@@ -11,7 +11,7 @@ WriteMakefile(
     VERSION_FROM => 'lib/KiokuDB/Backend/BDB.pm',
     INSTALLDIRS  => 'site',
     SIGN         => 1,
-    PL_FILES     => { },
+    PL_FILES     => { "check_bdb_version.PL" => "check_bdb_version" },
     META_MERGE   => { configure_requires => { BerkeleyDB => '0.36' } },
     PREREQ_PM    => {
         'Moose' => 0,
