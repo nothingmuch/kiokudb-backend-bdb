@@ -10,8 +10,8 @@ use Storable qw(thaw dclone);
 
 use ok 'KiokuDB::Backend::BDB';
 use ok 'KiokuDB::Collapser';
-use ok 'KiokuDB::Resolver';
 use ok 'KiokuDB::LiveObjects';
+use ok 'KiokuDB::TypeMap::Resolver';
 
 {
     package Foo;
@@ -47,9 +47,7 @@ my $obj = Foo->new(
 $obj->friend->friend($obj);
 
 my $c = KiokuDB::Collapser->new(
-    resolver => KiokuDB::Resolver->new(
-        live_objects => my $l = KiokuDB::LiveObjects->new,
-    ),
+    live_objects => my $l = KiokuDB::LiveObjects->new,
     typemap_resolver => KiokuDB::TypeMap::Resolver->new(
         typemap => KiokuDB::TypeMap->new
     ),
