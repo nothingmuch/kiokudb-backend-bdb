@@ -6,12 +6,19 @@ use ExtUtils::MakeMaker;
 
 require 5.008; # utf8 and what not
 
+my $checked_bdb;
+
+if ( eval { require BerkeleyDB } ) {
+    do "check_bdb_version.PL";
+    $checked_bdb++;
+}
+
 WriteMakefile(
     NAME         => 'KiokuDB::Backend::BDB',
     VERSION_FROM => 'lib/KiokuDB/Backend/BDB.pm',
     INSTALLDIRS  => 'site',
     SIGN         => 1,
-    PL_FILES     => { "check_bdb_version.PL" => "check_bdb_version" },
+    PL_FILES     => { $checked_bdb ? () : ( "check_bdb_version.PL" => "check_bdb_version" ) },
     META_MERGE   => { configure_requires => { BerkeleyDB => '0.36' } },
     PREREQ_PM    => {
         'Moose' => 0,
@@ -34,6 +41,3 @@ WriteMakefile(
     },
 );
 
-if ( eval { require BerkeleDB } ) {
-    die "BDB 4.7 required, but we only have $BerkeleyDB::db_version" if $BerkeleyDB::db_version < 4.7;
-}
