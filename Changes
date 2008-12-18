@@ -1,8 +1,13 @@
+0.07
+    - Depend on BDB 4.6 instead of 4.7
+
+0.06
+    - KiokuDB::Resolver was removed, update test suite
+
 0.05
     - Try to reduce false positive test fails by using a PL_FILES trick in the
       Makefile.PL, in order to get an NA instead of a FAIL if BDB is not recent
       enough
-    - KiokuDB::Resolver was removed, update test suite
 
 0.04
     - for better compat with BDB's tools, stop using logs/data subdirs (old
