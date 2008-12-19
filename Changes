@@ -1,3 +1,6 @@
+0.08
+    - Die if do "check_bdb_version.PL" fails (I forgot do is an implicit eval)
+
 0.07
     - Depend on BDB 4.6 instead of 4.7
 
