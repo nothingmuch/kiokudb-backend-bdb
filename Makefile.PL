@@ -10,6 +10,7 @@ my $checked_bdb;
 
 if ( eval { require BerkeleyDB } ) {
     do "check_bdb_version.PL";
+    die $@ if $@;
     $checked_bdb++;
 }
 
