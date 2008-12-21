@@ -27,6 +27,7 @@ with qw(
     KiokuDB::Backend::Serialize::Storable
     KiokuDB::Backend::Role::Clear
     KiokuDB::Backend::Role::TXN
+    KiokuDB::Backend::Role::TXN::Nested
     KiokuDB::Backend::Role::Scan
     KiokuDB::Backend::Role::Query::Simple::Linear
 );
