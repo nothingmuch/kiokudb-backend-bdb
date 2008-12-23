@@ -138,13 +138,43 @@ __END__
 
 =head1 NAME
 
-KiokuDB::Backend::BDB -
+KiokuDB::Backend::BDB - L<BerkeleyDB> backend for L<KiokuDB>.
 
 =head1 SYNOPSIS
 
-	use KiokuDB::Backend::BDB;
+    KiokuDB->connect( "bdb:dir=/path/to/storage", create => 1 );
 
 =head1 DESCRIPTION
+
+This is a L<BerkeleyDB> based backend for L<KiokuDB>.
+
+It is the best performing backend for most tasks, and is very feature complete
+as well.
+
+The L<KiokuDB::Backend::BDB::GIN> subclass provides searching support using
+L<Search::GIN>.
+
+=head1 ATTRIBUTES
+
+=over 4
+
+=item manager
+
+The L<BerkeleyDB::Manager> instance that opens up the L<BerkeleyDB> databases.
+
+This will be coerced from a hash reference too, so you can do something like:
+
+    KiokuDB::Backend::BDB->new(
+        manager => {
+            home => "/path/to/storage",
+            create => 1,
+            transactions => 0,
+        },
+    );
+
+to control the various parameters.
+
+=back
 
 =cut
 

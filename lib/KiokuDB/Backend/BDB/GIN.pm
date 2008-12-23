@@ -127,13 +127,28 @@ __END__
 
 =head1 NAME
 
-KiokuDB::Backend::BDB::GIN - 
+KiokuDB::Backend::BDB::GIN - L<Search::GIN> integration for L<KiokuDB::Backend::BDB>.
 
 =head1 SYNOPSIS
 
-	use KiokuDB::Backend::BDB::GIN;
+    KiokuDB->connect(
+        "bdb-gin:dir=/path/to/storage",
+        extract => Search::GIN::Extract::Foo->new(...),
+    );
 
 =head1 DESCRIPTION
+
+This subclass of L<KiokuDB::Backend::BDB> provides L<Search::GIN> integration.
+
+=head1 ATTRIBUTES
+
+=over 4
+
+=item extract
+
+A L<Search::GIN::Extract> object that is used to index the objects on insertion.
+
+=back
 
 =cut
 
