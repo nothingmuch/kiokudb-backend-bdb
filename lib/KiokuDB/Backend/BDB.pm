@@ -4,7 +4,6 @@ package KiokuDB::Backend::BDB;
 use Moose;
 
 use Scalar::Util qw(weaken);
-use Storable qw(nfreeze thaw);
 use MooseX::Types::Path::Class qw(Dir);
 
 use KiokuDB::Backend::BDB::Manager;
