@@ -1,3 +1,6 @@
+0.09
+    - Switch to Serialize::Delegate
+
 0.08
     - Die if do "check_bdb_version.PL" fails (I forgot do is an implicit eval)
 

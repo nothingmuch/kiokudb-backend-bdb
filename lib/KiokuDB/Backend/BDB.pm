@@ -23,7 +23,7 @@ our $VERSION = "0.08";
 
 with qw(
     KiokuDB::Backend
-    KiokuDB::Backend::Serialize::Storable
+    KiokuDB::Backend::Serialize::Delegate
     KiokuDB::Backend::Role::Clear
     KiokuDB::Backend::Role::TXN
     KiokuDB::Backend::Role::TXN::Nested
