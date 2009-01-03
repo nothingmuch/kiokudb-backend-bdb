@@ -3,8 +3,12 @@
 package KiokuDB::Backend::BDB;
 use Moose;
 
+use Carp qw(croak);
+
 use Scalar::Util qw(weaken);
 use MooseX::Types::Path::Class qw(Dir);
+
+use BerkeleyDB qw(DB_NOOVERWRITE DB_KEYEXIST);
 
 use KiokuDB::Backend::BDB::Manager;
 
@@ -81,8 +85,23 @@ sub delete {
 
 sub insert {
     my ( $self, @entries ) = @_;
+
     my $primary_db = $self->primary_db;
-    $primary_db->db_put( $_->id => $self->serialize($_) ) for @entries;
+
+    foreach my $entry ( @entries ) {
+        my $ret = $primary_db->db_put(
+            $entry->id => $self->serialize($entry),
+            ( $entry->has_prev ? () : DB_NOOVERWRITE ),
+        );
+
+        if ( $ret ) {
+            if ( $ret == DB_KEYEXIST ) {
+                croak "Entry " . $entry->id . " already exists in the database";
+            } else {
+                die $BerkeleyDB::Error;
+            }
+        }
+    }
 }
 
 sub get {
