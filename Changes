@@ -1,3 +1,7 @@
+0.10
+    - Specify DB_NOOVERWRITE to db_put if there is no previous entry to
+      disallow overwrite on insert.
+
 0.09
     - Switch to Serialize::Delegate
 
