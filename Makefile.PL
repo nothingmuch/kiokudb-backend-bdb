@@ -29,7 +29,7 @@ WriteMakefile(
 
         'Data::Stream::Bulk' => 0,
 
-        'BerkeleyDB::Manager' => '0.09',
+        'BerkeleyDB::Manager' => '0.11',
         'BerkeleyDB' => '0.36',
 
         'Test::use::ok' => 0,
