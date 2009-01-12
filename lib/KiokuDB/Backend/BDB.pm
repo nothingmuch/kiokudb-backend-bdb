@@ -80,7 +80,11 @@ sub delete {
     my @uids = map { ref($_) ? $_->id : $_ } @ids_or_entries;
 
     my $primary_db = $self->primary_db;
-    $primary_db->db_del($_) for @uids;
+    foreach my $id ( @uids ) {
+        if ( my $ret = $primary_db->db_del($id) ) {
+            die $ret;
+        }
+    }
 }
 
 sub insert {
