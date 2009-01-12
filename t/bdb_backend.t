@@ -47,6 +47,7 @@ my $obj = Foo->new(
 $obj->friend->friend($obj);
 
 my $c = KiokuDB::Collapser->new(
+    backend => $b,
     live_objects => my $l = KiokuDB::LiveObjects->new,
     typemap_resolver => KiokuDB::TypeMap::Resolver->new(
         typemap => KiokuDB::TypeMap->new
