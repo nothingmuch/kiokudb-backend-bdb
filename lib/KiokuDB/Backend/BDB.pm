@@ -102,7 +102,7 @@ sub insert {
             if ( $ret == DB_KEYEXIST ) {
                 croak "Entry " . $entry->id . " already exists in the database";
             } else {
-                die $BerkeleyDB::Error;
+                die $ret;
             }
         }
     }
