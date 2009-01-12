@@ -145,6 +145,15 @@ sub all_entries {
     )->filter(sub {[ map { $self->deserialize($_) } @$_ ]});
 }
 
+sub all_entry_ids {
+    my $self = shift;
+
+    $self->manager->cursor_stream(
+        db => $self->primary_db,
+        keys => 1,
+    );
+}
+
 # sub root_entries { } # secondary index?
 
 __PACKAGE__->meta->make_immutable;
