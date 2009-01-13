@@ -1,3 +1,9 @@
+0.11
+    - Update test suite for KiokuDB 0.20
+    - Bump deps on KiokuDB and BerkeleyDB
+    - Die with correct error on insert
+    - Add all_entry_ids method
+
 0.10
     - Specify DB_NOOVERWRITE to db_put if there is no previous entry to
       disallow overwrite on insert.
