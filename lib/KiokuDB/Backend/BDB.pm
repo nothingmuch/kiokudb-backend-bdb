@@ -85,6 +85,8 @@ sub delete {
             die $ret;
         }
     }
+
+    return;
 }
 
 sub insert {
