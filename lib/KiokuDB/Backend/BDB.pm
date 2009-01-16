@@ -208,6 +208,93 @@ This will be coerced from a hash reference too, so you can do something like:
 
 to control the various parameters.
 
+WHen using C<connect> all the parameters are passed through to the manager as
+well:
+
+    KiokuDB->connect(
+        'bdb:dir=foo',
+        create => 1,
+        transactions => 0,
+    );
+
+=head1 LOG FILES AND BACKUPS
+
+Berkeley DB has extensive support for backup archival and recovery.
+
+Unfortunately the default settings also mean that log files accumilate unless
+they are cleaned up.
+
+If you are interested in creating backups look into the C<db_hotback> or
+C<db_archive> utilities.
+
+=head2 Using BerkeleyDB's backup/recovery facilities
+
+Read the Berkeley DB documentation on recovery procedures:
+L<http://www.oracle.com/technology/documentation/berkeley-db/db/ref/transapp/recovery.html>
+
+Depending on what type of recovery scenarios you wish to protect yourself from,
+set up some sort of cron script to routinely back up the data.
+
+=head3 Checkpointing
+
+In order to properly back up the directory log files need to be checkpointed.
+Otherwise log files remain in use if the environment is still open and cannot
+be backed up.
+
+L<BerkeleyDB::Manager> sets C<auto_checkpoint> by default, causing checkpoints
+to happen if enough data has been written after every top level C<txn_commit>.
+
+You can disable that flag and run the C<db_checkpoint> utility from cron, or
+let it run in the background.
+
+More information about checkpointing can be found here:
+L<http://www.oracle.com/technology/documentation/berkeley-db/db/ref/transapp/checkpoint.html>
+
+Information about the C<db_checkpoint> utility can be found here:
+L<http://www.oracle.com/technology/documentation/berkeley-db/db/utility/db_checkpoint.html>
+
+=head3 C<db_archive>
+
+C<db_archive> can be used to list unused log files. You can copy these log
+files to backup media and then remove them.
+
+L<http://www.oracle.com/technology/documentation/berkeley-db/db/utility/db_archive.html>
+
+Using C<db_archive> and cleaning files yourself is recommended for catastrophic
+recovery purposes.
+
+=head3 C<db_hotbackup>
+
+If catastrophic recovery protection is not necessary you can create hot
+backups instead of full ones.
+
+Running the following command from cron is an easy way to have maintain a
+backup directory with and clean your log files:
+
+    db_hotbackup -h /path/to/storage -b /path/to/backup -u -c
+
+This command will checkpoint the logs, and then copy or move all the files to
+the backup directory, overwriting previous copies of the logs in that
+directory. Then it runs C<db_recover> in catastrophic recovery mode in the
+backup directory, bringing the data up to date.
+
+This is essentially C<db_checkpoint>, C<db_archive> and log file cleanup all
+rolled into one command. You can write your own hot backup utililty using
+C<db_archive> and C<db_recover> if you want catastrophic recovery ability.
+
+L<http://www.oracle.com/technology/documentation/berkeley-db/db/utility/db_hotbackup.html>
+
+=head2 Automatically cleaning up log files
+
+If you don't need recovery support at all you can specify C<log_auto_remove> to
+L<BerkeleyDB::Manager>
+
+    KiokuDB->connect( "bdb:dir=foo", log_auto_remove => 1 );
+
+This instructs Berkeley DB to clean any log files that are no longer in use in
+an active transaction. Backup snapshots can still be made but catastrophic
+recovery is impossilbe.
+
 =back
 
 =head1 VERSION CONTROL
