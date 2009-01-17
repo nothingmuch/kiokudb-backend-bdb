@@ -1,3 +1,6 @@
+0.12
+    - Add documentation section about backups and recovery.
+
 0.11
     - Update test suite for KiokuDB 0.20
     - Bump deps on KiokuDB and BerkeleyDB
