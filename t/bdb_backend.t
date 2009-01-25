@@ -56,7 +56,9 @@ my $c = KiokuDB::Collapser->new(
 
 my $s = $l->new_scope;
 
-my @entries = $c->collapse_objects($obj);
+my ( $buffer ) = $c->collapse( objects => [ $obj ]);
+
+my @entries = values %{ $buffer->entries };
 
 is( scalar(@entries), 2, "two entries" );
 
