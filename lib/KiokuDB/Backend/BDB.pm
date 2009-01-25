@@ -8,7 +8,7 @@ use Carp qw(croak);
 use Scalar::Util qw(weaken);
 use MooseX::Types::Path::Class qw(Dir);
 
-use BerkeleyDB qw(DB_NOOVERWRITE DB_KEYEXIST);
+use BerkeleyDB qw(DB_NOOVERWRITE DB_KEYEXIST DB_NOTFOUND);
 
 use KiokuDB::Backend::BDB::Manager;
 
@@ -118,18 +118,41 @@ sub get {
     my $primary_db = $self->primary_db;
 
     foreach my $uid ( @uids ) {
-        $primary_db->db_get($uid, $var) == 0 || return;
-        push @ret, $var;
+        my $ret = $primary_db->db_get($uid, $var);
+        if ( $ret == 0 ) {
+            push @ret, $var;
+        } elsif ( $ret == DB_NOTFOUND ) {
+            return;
+        } else {
+            die $ret;
+        }
     }
 
     return map { $self->deserialize($_) } @ret;
 }
 
 sub exists {
-    my ( $self, @uids ) = @_;
+    my ( $self, @ids ) = @_;
+
     my $primary_db = $self->primary_db;
+
     my $v;
-    map { $primary_db->db_get($_, $v) == 0 } @uids;
+
+    my @exists;
+
+    foreach my $id ( @ids ) {
+        my $ret = $primary_db->db_get($id, $v);
+
+        if ( $ret == 0 ) {
+            push @exists, 1;
+        } elsif ( $ret == DB_NOTFOUND ) {
+            push @exists, 0;
+        } else {
+            die $ret;
+        }
+    }
+
+    return @exists;
 }
 
 sub clear {
