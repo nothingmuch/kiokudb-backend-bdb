@@ -33,6 +33,7 @@ with qw(
     KiokuDB::Backend::Role::TXN::Nested
     KiokuDB::Backend::Role::Scan
     KiokuDB::Backend::Role::Query::Simple::Linear
+    KiokuDB::Backend::Role::Concurrency::POSIX
 );
 
 has manager => (
