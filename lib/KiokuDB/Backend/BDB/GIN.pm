@@ -36,6 +36,8 @@ has '+extract' => (
     required => 0,
 );
 
+my %keys;
+
 sub _open_secondary {
     my ( $self, @args ) = @_;
 
@@ -45,14 +47,9 @@ sub _open_secondary {
         secondary => $secondary,
         primary   => $self->primary_db,
         callback  => sub {
-            my ( $id, $blob ) = @_;
-
-            my $entry = $self->deserialize($blob);
-
-            my $b = $entry->backend_data || return [];
-
-            return $b->{keys} || [];
-        },
+            my $id = shift;
+            return delete $keys{$id} || [];
+        }
     );
 
     return $secondary;
@@ -67,8 +64,13 @@ before insert => sub {
             if ( $entry->deleted || !$entry->has_object || ( !$entry->root && $self->root_only ) ) {
                 $entry->clear_backend_data;
             } else {
-                my $d = $entry->backend_data || $entry->backend_data({});
-                $d->{keys} = [ $self->extract_values( $entry->object, entry => $entry ) ];
+                my @keys = $self->extract_values( $entry->object, entry => $entry );
+
+                if ( @keys ) {
+                    my $d = $entry->backend_data || $entry->backend_data({});
+                    $d->{keys} = \@keys;
+                    $keys{$entry->id} = \@keys; # temp
+                }
             }
         }
     }
