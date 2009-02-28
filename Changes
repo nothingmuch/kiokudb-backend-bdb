@@ -1,3 +1,8 @@
+0.14
+    - slight speed improvement for GIN insertions using a temp hash
+    - new concurrency test
+    - handle DB_NOTFOUND in get/exists
+
 0.13
     - Update test suite for removal of private method from KiokuDB::Collapser
 
