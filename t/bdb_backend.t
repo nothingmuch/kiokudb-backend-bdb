@@ -58,7 +58,7 @@ my $s = $l->new_scope;
 
 my ( $buffer ) = $c->collapse( objects => [ $obj ]);
 
-my @entries = values %{ $buffer->entries };
+my @entries = $buffer->entries;
 
 is( scalar(@entries), 2, "two entries" );
 

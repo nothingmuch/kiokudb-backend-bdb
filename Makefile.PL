@@ -25,7 +25,7 @@ WriteMakefile(
         'Moose' => 0,
         'MooseX::Types::Path::Class' => 0,
 
-        'KiokuDB' => '0.24',
+        'KiokuDB' => '0.45',
 
         'Data::Stream::Bulk' => 0,
 
