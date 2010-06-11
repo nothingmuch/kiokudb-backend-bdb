@@ -23,7 +23,7 @@ use namespace::clean -except => 'meta';
 # this should be generic (work with both c_get and c_pget, and the various
 # flags)
 
-our $VERSION = "0.14";
+our $VERSION = "0.15";
 
 with qw(
     KiokuDB::Backend
